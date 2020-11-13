@@ -6,54 +6,77 @@ using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
+//LC version via views-starter:
 namespace HelloASPDotNET.Controllers
 {
-    [Route("/helloworld")]
     public class HelloController : Controller
     {
         // GET: /<controller>/
         [HttpGet]
         public IActionResult Index()
         {
-            string html = "<form method='post' action='/helloworld/welcome'>" +
-                "<input type='text' name='name' />" +
-                "<select name='language'> <option value='french'>French</option> <option value='english'>English</option> <option value='spanish'>Spanish</option> <option value='italian'>Italian</option> <option value='latin'>Latin</option></select>" +
-                "<input type='submit' value='Greet Me!' />" +
-                "</form>";
-            return Content(html, "text/html");
+            return View();
         }
 
-        // GET
-        [HttpGet("welcome/{name?}")]
-        [HttpPost("welcome")]
-        public IActionResult Welcome(string name = "World", string language = "english")
+        [HttpPost]
+        [Route("/hello")]
+        public IActionResult Welcome(string name = "World")
         {
-           return Content(CreateMessage(name, language), "text/html");
-        }
-
-        public static string CreateMessage(string name, string language)
-        {
-            string greeting = "Hello ";
-
-            if (language == "latin")
-            {
-                greeting = "Salve ";
-            }
-            else if (language == "french")
-            {
-                greeting = "Bonjour ";
-            }
-            else if (language == "spanish")
-            {
-                greeting = "Hola ";
-            }
-            else if (language == "italian")
-            {
-                greeting = "Ciao ";
-            }
-
-            string phrase = greeting + name;
-            return phrase;
+            ViewBag.person = name;
+            return View();
         }
     }
 }
+
+
+//version I tried to make based on their starter code (web page loaded blank):
+
+//namespace HelloASPDotNET.Controllers
+//{
+//    [Route("/helloworld")]
+//    public class HelloController : Controller
+//    {
+//        // GET: /<controller>/
+//        [HttpGet]
+//        public IActionResult Index()
+//        {
+//            //string html = "<form method='post' action='/helloworld/welcome'>" +
+//            return View();
+//        }
+
+//        // GET
+//        //[HttpGet("welcome/{name?}")]
+//        //[HttpPost("welcome")]
+//        [HttpPost]
+//        [Route("/hello")]
+//        public IActionResult Welcome(string name = "World", string language = "english")
+//        {
+//           return Content(CreateMessage(name, language), "text/html");
+//        }
+
+//        public static string CreateMessage(string name, string language)
+//        {
+//            string greeting = "Hello ";
+
+//            if (language == "latin")
+//            {
+//                greeting = "Salve ";
+//            }
+//            else if (language == "french")
+//            {
+//                greeting = "Bonjour ";
+//            }
+//            else if (language == "spanish")
+//            {
+//                greeting = "Hola ";
+//            }
+//            else if (language == "italian")
+//            {
+//                greeting = "Ciao ";
+//            }
+
+//            string phrase = greeting + name;
+//            return phrase;
+//        }
+//    }
+//}
